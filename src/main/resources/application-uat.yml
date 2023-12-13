@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: wtl-admin-service
+  datasource:
+    url: jdbc:postgresql://10.125.224.2:5432/wtl_prod_db
+    username: sandeep_tiwari
+    password: 7C5£($4P.pXd
+  jpa:
+    show-sql: true
+    database: POSTGRESQL
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        id:
+          new_generator_mappings: false
+        jdbc:
+          lob:
+            non_contextual_creation: true
