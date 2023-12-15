@@ -17,6 +17,11 @@ public interface AppConstants {
 
     String PRODUCT_UPDATE_MESSAGE_200 = "Product is updated successfully.";
 
+    String ADMIN_ROLE = "ADMIN";
+    String COMMA_DELIMITER = ",";
+
+    String PARAM_NAME = "keyword";
+
     static String encode(String value) {
         return Base64.getEncoder().encodeToString(value.getBytes());
     }

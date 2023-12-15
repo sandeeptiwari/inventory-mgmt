@@ -9,6 +9,9 @@ import java.util.Base64;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.app.inventorymgmt.utils.AppConstants.ADMIN_ROLE;
+import static com.app.inventorymgmt.utils.AppConstants.COMMA_DELIMITER;
+
 @Component
 public class Base64TokenGenerator implements ITokenGenerator {
 
@@ -21,7 +24,7 @@ public class Base64TokenGenerator implements ITokenGenerator {
     @Override
     public String generateToken(String emailId) {
         Optional<User> user = userRepository.findByEmailId(emailId);
-        String roles = user.map(u -> u.getRoles().stream().map(Role::getName).collect(Collectors.joining(",")))
+        String roles = user.map(u -> u.getRoles().stream().map(Role::getName).collect(Collectors.joining(COMMA_DELIMITER)))
                 .orElse("");
         return Base64.getEncoder().encodeToString(roles.getBytes());
     }
@@ -36,7 +39,7 @@ public class Base64TokenGenerator implements ITokenGenerator {
         boolean isAdmin = false;
         if (token != null && !token.isEmpty()) {
             String roles = new String(Base64.getDecoder().decode(token));
-            isAdmin = roles.contains("ADMIN");
+            isAdmin = roles.contains(ADMIN_ROLE);
         }
         return isAdmin;
     }

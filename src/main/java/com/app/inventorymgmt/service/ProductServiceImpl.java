@@ -25,13 +25,17 @@ public class ProductServiceImpl implements IProductService {
 
     private final CategoryBasedFilter categoryBasedFilter;
 
+    private final INotification notification;
+
 
     public ProductServiceImpl(ProductRepository productRepository,
                               BrandBasedFilter brandBasedFilter,
-                              CategoryBasedFilter categoryBasedFilter) {
+                              CategoryBasedFilter categoryBasedFilter,
+                              INotification notification) {
         this.productRepository = productRepository;
         this.brandBasedFilter = brandBasedFilter;
         this.categoryBasedFilter = categoryBasedFilter;
+        this.notification = notification;
     }
 
     @Override
@@ -42,7 +46,7 @@ public class ProductServiceImpl implements IProductService {
         productEntity.setPrice(productDTO.price());
         productEntity.setCategory(productDTO.category());
         productEntity.setBrand(productDTO.brand());
-        productRepository.save(productEntity);
+        notification.sendNotification(productRepository.save(productEntity));
     }
 
     @Override
